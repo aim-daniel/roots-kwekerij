@@ -149,7 +149,7 @@ p{margin:0}
 .ico{flex:none;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;color:var(--leaf);background:rgba(29,20,14,.88);box-shadow:inset 0 0 0 1px rgba(141,184,115,.32);transition:background-color .5s ease, color .5s ease, box-shadow .5s ease}
 .ico svg{width:26px;height:26px}
 .step.on .ico{background:var(--leaf);color:var(--soil-3);box-shadow:0 0 0 6px rgba(141,184,115,.13),0 0 30px rgba(141,184,115,.35)}
-.st-body{min-width:0}
+.st-body{display:block;min-width:0}
 .step h3{font-size:24px;letter-spacing:-.02em}
 .plus{flex:none;width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(245,236,221,.28);position:relative;transition:box-shadow .2s ease}
 .plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;margin:-.75px 0 0 -5.5px;background:var(--ink);transition:transform .25s ease}
@@ -165,7 +165,7 @@ p{margin:0}
 .st-photo img{width:100%;height:100%;object-fit:cover}
 .chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:10px 0 0;padding:0}
 .step.l .chips{justify-content:flex-end}
-.chips li{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);padding:6px 11px;border-radius:999px;background:rgba(29,20,14,.85);box-shadow:inset 0 0 0 1px var(--line)}
+.chips > span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);padding:6px 11px;border-radius:999px;background:rgba(29,20,14,.85);box-shadow:inset 0 0 0 1px var(--line)}
 @media (max-width:760px){
   /* telefoon: de kas in = wortel links, de kas uit = wortel rechts */
   .group{justify-content:flex-start}
@@ -326,3 +326,12 @@ a.case:focus-visible{outline-offset:4px}
 .back{display:inline-flex;align-items:center;gap:8px;margin-top:40px;color:var(--leaf);font-weight:600;text-decoration:none}
 .back:hover{text-decoration:underline}
 .center{text-align:center}
+
+/* logo (@Roots met rozet): even groot als het oude woordmerk */
+.brand{display:inline-flex;align-items:center;letter-spacing:0}
+.brand picture{display:block}
+.brand .logo{display:block;height:24px;width:auto}
+.brand .logo-l{display:none}
+.top.dark .brand .logo-d{display:none}
+.top.dark .brand .logo-l{display:block}
+.foot .brand .logo{height:22px}

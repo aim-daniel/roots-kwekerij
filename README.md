@@ -10,7 +10,7 @@ Statische, drietalige site (nl / en / de) voor kwekerij Roots in IJsselmuiden.
 
 ```bash
 # GitHub Pages zonder eigen domein (https://aim-daniel.github.io/roots-kwekerij/), nog niet indexeren
-ROOTS_BASE_PATH=/roots-kwekerij/ python3 build.py
+python3 build.py
 
 # Met eigen domein (zet ook docs/CNAME): canonical, hreflang, sitemap en indexeren aan
 ROOTS_SITE_URL=https://www.voorbeeld.nl python3 build.py

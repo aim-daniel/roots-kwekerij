@@ -1,6 +1,6 @@
 # Alle teksten van de site, per taal (nl = Nederlands, en = Engels, de = Duits).
 # Alleen feiten die de familie zelf heeft gegeven; verzin hier niets bij.
-# Na een wijziging: python3 build.py  (maakt de map docs/ opnieuw).
+# Na een wijziging: python3 build.py  (maakt docs/ opnieuw; zie README voor een eigen domein).
 
 COMPANY = {
     "name": "Roots",

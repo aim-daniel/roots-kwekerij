@@ -2,7 +2,7 @@
 """Bouwt de Roots-site in docs/ (statisch, klaar voor GitHub Pages of elke webhost).
 
 Gebruik:
-    python3 build.py                                          # voorbeeld: noindex, relatieve links
+    python3 build.py                                          # GitHub Pages (aim-daniel.github.io/roots-kwekerij/): noindex
     ROOTS_SITE_URL=https://www.voorbeeld.nl python3 build.py  # live: canonical, hreflang, sitemap, indexeerbaar
 
 Teksten staan in content.py, opmaak in static/css/site.css, de wortel in static/js/roots.js.
@@ -11,6 +11,7 @@ import hashlib
 import html
 import json
 import os
+import re
 import shutil
 
 from PIL import Image, ImageDraw, ImageFilter
@@ -23,7 +24,8 @@ OUT = os.path.join(ROOT, "docs")
 SITE_URL = os.environ.get("ROOTS_SITE_URL", "").rstrip("/")
 INDEXABLE = bool(SITE_URL) and os.environ.get("ROOTS_NOINDEX") != "1"
 # map waarin de site op de server staat (GitHub Pages zonder eigen domein: /roots-kwekerij/)
-BASE_PATH = "/" + os.environ.get("ROOTS_BASE_PATH", "/").strip("/") + "/" if os.environ.get("ROOTS_BASE_PATH", "/").strip("/") else "/"
+_bp = os.environ.get("ROOTS_BASE_PATH", "/" if SITE_URL else "/roots-kwekerij/").strip("/")
+BASE_PATH = "/" + _bp + "/" if _bp else "/"
 PAGES = ["home", "sempervivum", "perovskia", "hibiscus"]
 YEAR = "2026"
 
@@ -56,6 +58,7 @@ def absolute(p):
 
 # ---------------------------------------------------------------- beelden
 IMG_SIZES = {}
+NO_WEBP = set()  # beelden waarvan de webp niet kleiner is: alleen jpg
 
 
 def prepare_images():
@@ -70,6 +73,9 @@ def prepare_images():
         IMG_SIZES[name] = im.size
         shutil.copy2(os.path.join(src, f), os.path.join(dst, f))
         im.save(os.path.join(dst, name + ".webp"), "WEBP", quality=78, method=6)
+        if os.path.getsize(os.path.join(dst, name + ".webp")) >= os.path.getsize(os.path.join(dst, f)):
+            os.remove(os.path.join(dst, name + ".webp"))
+            NO_WEBP.add(name)
         if im.size[0] > 560:
             h = round(im.size[1] * 560 / im.size[0])
             small = im.resize((560, h), Image.LANCZOS)
@@ -83,50 +89,22 @@ def pic(b, name, alt, sizes, lazy=True):
     webp = f'{b}img/{name}-560.webp 560w, {b}img/{name}.webp {w}w' if big else f'{b}img/{name}.webp {w}w'
     jpg = f'{b}img/{name}-560.jpg 560w, {b}img/{name}.jpg {w}w' if big else f'{b}img/{name}.jpg {w}w'
     load = ' loading="lazy" decoding="async"' if lazy else ""
+    if name in NO_WEBP:
+        return f'<img src="{b}img/{name}.jpg" srcset="{jpg}" sizes="{sizes}" alt="{e(alt)}" width="{w}" height="{h}"{load}>'
     return (f'<picture><source type="image/webp" srcset="{webp}" sizes="{sizes}">'
             f'<img src="{b}img/{name}.jpg" srcset="{jpg}" sizes="{sizes}" alt="{e(alt)}" width="{w}" height="{h}"{load}></picture>')
 
 
 def make_icons_and_og():
     """Favicon (svg + png) en deelafbeelding, alleen gegenereerd uit eigen materiaal."""
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#34241A"/>'
-           '<g fill="none" stroke="#8DB873" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
-           '<path d="M32 50V35"/><path d="M32 35c-9 0-14-5.6-14-15 9.2 0 14 5.2 14 15z"/><path d="M32 31c0-8.6 4.4-14 13-14 0 8.4-4.6 14-13 14z"/></g>'
-           '<path d="M21 50h22" stroke="#B9875C" stroke-width="4" stroke-linecap="round"/></svg>')
-    open(os.path.join(OUT, "favicon.svg"), "w").write(svg)
-
-    def bez(p0, p1, p2, p3, n=24):
-        pts = []
-        for i in range(n + 1):
-            t = i / n
-            u = 1 - t
-            pts.append((u**3 * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t**3 * p3[0],
-                        u**3 * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t**3 * p3[1]))
-        return pts
-
-    def icon(size):
-        s = 8  # supersample
-        S = 64 * s
-        im = Image.new("RGBA", (S, S), (0, 0, 0, 0))
-        d = ImageDraw.Draw(im)
-        d.rounded_rectangle((0, 0, S - 1, S - 1), radius=14 * s, fill="#34241A")
-        sc = lambda pts: [(x * s, y * s) for x, y in pts]
-        leaf1 = bez((32, 35), (23, 35), (18, 29.4), (18, 20)) + bez((18, 20), (27.2, 20), (32, 25.2), (32, 35))
-        leaf2 = bez((32, 31), (32, 22.4), (36.4, 17), (45, 17)) + bez((45, 17), (45, 25.4), (40.4, 31), (32, 31))
-        for leaf in (leaf1, leaf2):
-            d.line(sc(leaf), fill="#8DB873", width=4 * s, joint="curve")
-        d.line(sc([(32, 50), (32, 35)]), fill="#8DB873", width=4 * s)
-        d.line(sc([(21, 50), (43, 50)]), fill="#B9875C", width=4 * s)
-        for (x, y), c in (((32, 50), "#8DB873"), ((32, 35), "#8DB873"), ((21, 50), "#B9875C"), ((43, 50), "#B9875C")):
-            r = 2 * s
-            d.ellipse((x * s - r, y * s - r, x * s + r, y * s + r), fill=c)
-        return im.resize((size, size), Image.LANCZOS)
-
-    icon(32).save(os.path.join(OUT, "favicon-32.png"))
-    bg = Image.new("RGB", (180, 180), "#34241A")
-    ic = icon(180)
-    bg.paste(ic, (0, 0), ic)
-    bg.save(os.path.join(OUT, "apple-touch-icon.png"))
+    # icoontjes uit de rozet van het logo (static/src/rozet.png)
+    ros = Image.open(os.path.join(STATIC, "src", "rozet.png")).convert("RGBA")
+    for size, name in ((32, "favicon-32.png"), (192, "icon-192.png")):
+        ros.resize((size, size), Image.LANCZOS).save(os.path.join(OUT, name), optimize=True)
+    touch = Image.new("RGBA", (180, 180), (242, 236, 223, 255))
+    r = ros.resize((140, 140), Image.LANCZOS)
+    touch.paste(r, (20, 20), r)
+    touch.convert("RGB").save(os.path.join(OUT, "apple-touch-icon.png"), optimize=True)
 
     # deelafbeelding 1200x630: eigen kasfoto (rood-gele Sempervivum boven een volle kas)
     src = os.path.join(ROOT, "bron", "kas-rozet-hand.jpg")
@@ -201,7 +179,7 @@ def org_ld():
     if SITE_URL:
         org["@id"] = SITE_URL + "/#org"
         org["url"] = SITE_URL + "/"
-        org["logo"] = SITE_URL + "/apple-touch-icon.png"
+        org["logo"] = SITE_URL + "/icon-192.png"
     return org
 
 
@@ -221,8 +199,8 @@ def head(lang, page, title, desc, graph):
             out.append(f'<link rel="alternate" hreflang="{l}" href="{absolute(path(l, page))}">')
         out.append(f'<link rel="alternate" hreflang="x-default" href="{absolute(path("en", page))}">')
     out += ['<meta name="theme-color" content="#F2ECDF">',
-            f'<link rel="icon" href="{b}favicon.svg" type="image/svg+xml">',
             f'<link rel="icon" href="{b}favicon-32.png" sizes="32x32" type="image/png">',
+            f'<link rel="icon" href="{b}icon-192.png" sizes="192x192" type="image/png">',
             f'<link rel="apple-touch-icon" href="{b}apple-touch-icon.png">',
             f'<link rel="preload" href="{b}fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>',
             f'<link rel="stylesheet" href="{b}css/site.css?v={VER}">',
@@ -246,6 +224,17 @@ def head(lang, page, title, desc, graph):
     return "\n".join(out)
 
 
+def logo_img(b, name, alt):
+    return (f'<picture><source type="image/webp" srcset="{b}logo/{name}.webp">'
+            f'<img class="logo" src="{b}logo/{name}.png" alt="{e(alt)}" width="117" height="24"></picture>')
+
+
+def logo_imgs(b):
+    # donker logo op de lichte kop, licht logo zodra de kop donker wordt (onder de grond)
+    return (f'<span class="logo-d">{logo_img(b, "logo", "")}</span>'
+            f'<span class="logo-l">{logo_img(b, "logo-licht", "")}</span>')
+
+
 def header(lang, page):
     t = T[lang]
     ids = IDS[lang]
@@ -259,7 +248,7 @@ def header(lang, page):
     return f'''<a class="skip" href="#main">{e(t["skip"])}</a>
 <header class="top" id="top">
   <div class="wrap top-in">
-    <a class="brand" href="{brand_href}" aria-label="{e(t["brand_label"])}">ROOTS</a>
+    <a class="brand" href="{brand_href}" aria-label="{e(t["brand_label"])}">{logo_imgs(up(lang, page))}</a>
     <nav class="nav" aria-label="{e(t["menu_label"])}">{nav}</nav>
     <div class="top-end">
       <nav class="langs" aria-label="{e(t["lang_label"])}">{langs}</nav>
@@ -276,7 +265,7 @@ def footer(lang, page):
     plants = " · ".join(f'<a href="{link(lang, page, lang, p)}">{e(T[lang]["pages"][p]["h1"])}</a>' for p in PAGES[1:])
     return f'''<footer class="foot">
   <div class="wrap">
-    <span class="brand">ROOTS</span>
+    <span class="brand">{logo_img(up(lang, page), "logo-licht", "@Roots")}</span>
     <ul>
       <li>{plants}</li>
       <li>{e(c["street"])}, {e(c["postcode"])} {e(c["city"])}{e(country)}</li>
@@ -340,12 +329,12 @@ def home(lang):
 
     def step(i):
         s = t["steps"][i]
-        chips = ('<ul class="chips">' + "".join(f"<li>{e(c)}</li>" for c in s["chips"]) + "</ul>") if s["chips"] else ""
+        chips = ('<span class="chips">' + "".join(f"<span>{e(c)}</span>" for c in s["chips"]) + "</span>") if s["chips"] else ""
         # een stap zonder (aangeleverde) foto toont alleen de zin
         photo = (f'<figure class="st-photo">{pic(b, STEP_PHOTOS[i], s["alt"], "260px")}</figure>') if STEP_PHOTOS[i] in IMG_SIZES else ""
         return f'''            <li class="step {STEP_SIDES[i]}">
               <details class="st">
-                <summary><div class="st-main"><div class="ico">{ico(STEP_ICONS[i])}</div><div class="st-body"><h3>{e(s["title"])}</h3>{chips}</div><i class="plus" aria-hidden="true"></i></div></summary>
+                <summary><span class="st-main"><span class="ico">{ico(STEP_ICONS[i])}</span><span class="st-body"><h3>{e(s["title"])}</h3>{chips}</span><i class="plus" aria-hidden="true"></i></span></summary>
                 <div class="st-more"><p>{e(s["text"])}</p>{photo}</div>
               </details>
             </li>'''
@@ -586,6 +575,7 @@ def not_found():
     de = T["de"]
     graph = [org_ld()]
     h = head("nl", "home", t["nf_title"], t["nf_p"], graph).replace('<meta name="robots" content="noindex">', "")
+    h = re.sub(r'<link rel="(?:canonical|alternate)"[^>]*>\n|<meta property="og:url"[^>]*>\n', "", h)
     # 404 wordt op elke diepte geserveerd: <base> laat de relatieve paden vanaf de site-map werken
     h = h.replace("<head>", f'<head>\n<base href="{BASE_PATH}">\n<meta name="robots" content="noindex">')
     return h + f'''
@@ -648,7 +638,7 @@ def main():
             p = os.path.join(OUT, f)
             shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
     os.makedirs(OUT, exist_ok=True)
-    for d in ("css", "js", "fonts"):
+    for d in ("css", "js", "fonts", "logo"):
         shutil.copytree(os.path.join(STATIC, d), os.path.join(OUT, d), dirs_exist_ok=True)
     prepare_images()
     make_icons_and_og()
