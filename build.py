@@ -514,7 +514,7 @@ def plant_page(lang, key):
         s = t["series"][key]
         if key == "perovskia":
             own = (f'<figure class="case">{pic(b, "stefan-christol-rond", p["alts"][1], "(max-width:600px) 92vw, 400px")}'
-                   f'<figcaption><span class="tag">Roots</span><h3>Stefan &amp; Christol</h3></figcaption></figure>')
+                   f'<figcaption><span class="tag">Roots</span><h3>Stefan &amp; Christel</h3></figcaption></figure>')
             cards = case(b, key, s, sizes="(max-width:600px) 92vw, 400px") + "\n          " + own
             klass = "cards two"
         else:

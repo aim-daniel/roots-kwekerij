@@ -85,15 +85,15 @@ T = {
     # over ons
     "about_h2": "Onze roots",
     "about_scribble": "opgegroeid in de tuinbouw",
-    "about_p": "Stefan en Christol begonnen Roots in 2021. In 2022 kochten ze de kas aan de Hartogsweg in IJsselmuiden.",
+    "about_p": "Stefan en Christel begonnen Roots in 2021. In 2022 kochten ze de kas aan de Hartogsweg in IJsselmuiden.",
     "about_more": "Lees ons verhaal",
     "about_story": "Stefan groeide op in de tuinbouw: op een rozenkwekerij van 600.000 m² en in de tuinbouw in Afrika. Samen begonnen ze klein, maar al snel stond de kas vol. Die groei ging nooit ten koste van de kwaliteit: van de eerste stek tot de plant op de kar letten ze op elk detail.",
     "people": [
         {"name": "Stefan", "role": "Eigenaar", "text": "Dagelijkse leiding, groei, strategie, verkoop, inkoop en personeel."},
-        {"name": "Christol", "role": "Compagnon", "text": "Strategie en boekhouding."},
+        {"name": "Christel", "role": "Compagnon", "text": "Strategie en boekhouding."},
     ],
     "about_small": "In de drukke maanden werken scholieren en seizoenskrachten met ons mee.",
-    "about_alt": "Stefan en Christol bij de kas, met Perovskia in pot",
+    "about_alt": "Stefan en Christel bij de kas, met Perovskia in pot",
     # inkopen
     "buy_h2": "Zo koop je bij ons",
     "buy_scribble": "veiling of direct",
@@ -155,7 +155,7 @@ T = {
             "facts": ["Mei – september", "Veiling of direct"],
             "photos_h2": "Perovskia bij Roots",
             "photos_scribble": "in het seizoen",
-            "alts": ["Perovskia Prime Time: Russische salie met lavendelpaarse bloei", "Stefan en Christol bij de kas, met Perovskia in pot"],
+            "alts": ["Perovskia Prime Time: Russische salie met lavendelpaarse bloei", "Stefan en Christel bij de kas, met Perovskia in pot"],
         },
         "hibiscus": {
             "title": "Hibiscus kweker | Roots IJsselmuiden",
@@ -226,15 +226,15 @@ T = {
     },
     "about_h2": "Our roots",
     "about_scribble": "raised in horticulture",
-    "about_p": "Stefan and Christol started Roots in 2021. In 2022 they bought the greenhouse on Hartogsweg in IJsselmuiden.",
+    "about_p": "Stefan and Christel started Roots in 2021. In 2022 they bought the greenhouse on Hartogsweg in IJsselmuiden.",
     "about_more": "Read our story",
     "about_story": "Stefan grew up in horticulture: on a 600,000 m² rose nursery and in horticulture in Africa. They started small, but the greenhouse soon filled up. That growth never came at the expense of quality: from the first cutting to the plant on the trolley, they pay attention to every detail.",
     "people": [
         {"name": "Stefan", "role": "Owner", "text": "Day-to-day management, growth, strategy, sales, purchasing and staff."},
-        {"name": "Christol", "role": "Partner", "text": "Strategy and bookkeeping."},
+        {"name": "Christel", "role": "Partner", "text": "Strategy and bookkeeping."},
     ],
     "about_small": "In the busy months, school students and seasonal workers help us out.",
-    "about_alt": "Stefan and Christol at the greenhouse, holding potted Perovskia",
+    "about_alt": "Stefan and Christel at the greenhouse, holding potted Perovskia",
     "buy_h2": "How to buy from us",
     "buy_scribble": "auction or direct",
     "buy_cards": [
@@ -292,7 +292,7 @@ T = {
             "facts": ["May – September", "Auction or direct"],
             "photos_h2": "Perovskia at Roots",
             "photos_scribble": "in season",
-            "alts": ["Perovskia Prime Time: Russian sage with lavender-purple flowers", "Stefan and Christol at the greenhouse, holding potted Perovskia"],
+            "alts": ["Perovskia Prime Time: Russian sage with lavender-purple flowers", "Stefan and Christel at the greenhouse, holding potted Perovskia"],
         },
         "hibiscus": {
             "title": "Hibiscus grower | Roots, the Netherlands",
@@ -363,15 +363,15 @@ T = {
     },
     "about_h2": "Unsere Wurzeln",
     "about_scribble": "im Gartenbau aufgewachsen",
-    "about_p": "Stefan und Christol haben Roots 2021 gegründet. 2022 kauften sie das Gewächshaus am Hartogsweg in IJsselmuiden.",
+    "about_p": "Stefan und Christel haben Roots 2021 gegründet. 2022 kauften sie das Gewächshaus am Hartogsweg in IJsselmuiden.",
     "about_more": "Unsere Geschichte",
     "about_story": "Stefan ist im Gartenbau aufgewachsen: auf einer Rosengärtnerei mit 600.000 m² und im Gartenbau in Afrika. Gemeinsam haben sie klein angefangen, doch schon bald war das Gewächshaus voll. Dieses Wachstum ging nie auf Kosten der Qualität: Vom ersten Steckling bis zur Pflanze auf dem Wagen achten sie auf jedes Detail.",
     "people": [
         {"name": "Stefan", "role": "Inhaber", "text": "Tägliche Leitung, Wachstum, Strategie, Verkauf, Einkauf und Personal."},
-        {"name": "Christol", "role": "Strategie & Buchhaltung", "text": "Hat Roots 2021 gemeinsam mit Stefan gegründet."},
+        {"name": "Christel", "role": "Strategie & Buchhaltung", "text": "Hat Roots 2021 gemeinsam mit Stefan gegründet."},
     ],
     "about_small": "In den arbeitsreichen Monaten helfen uns Schüler und Saisonkräfte.",
-    "about_alt": "Stefan und Christol am Gewächshaus, mit Perovskia im Topf",
+    "about_alt": "Stefan und Christel am Gewächshaus, mit Perovskia im Topf",
     "buy_h2": "So kaufen Sie bei uns",
     "buy_scribble": "Versteigerung oder direkt",
     "buy_cards": [
@@ -429,7 +429,7 @@ T = {
             "facts": ["Mai – September", "Versteigerung oder direkt"],
             "photos_h2": "Perovskia bei Roots",
             "photos_scribble": "in der Saison",
-            "alts": ["Perovskia Prime Time: Blauraute mit lavendelvioletten Blüten", "Stefan und Christol am Gewächshaus, mit Perovskia im Topf"],
+            "alts": ["Perovskia Prime Time: Blauraute mit lavendelvioletten Blüten", "Stefan und Christel am Gewächshaus, mit Perovskia im Topf"],
         },
         "hibiscus": {
             "title": "Hibiskus-Gärtnerei | Roots, Niederlande",
