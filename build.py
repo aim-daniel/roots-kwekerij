@@ -22,6 +22,8 @@ STATIC = os.path.join(ROOT, "static")
 OUT = os.path.join(ROOT, "docs")
 SITE_URL = os.environ.get("ROOTS_SITE_URL", "").rstrip("/")
 INDEXABLE = bool(SITE_URL) and os.environ.get("ROOTS_NOINDEX") != "1"
+# map waarin de site op de server staat (GitHub Pages zonder eigen domein: /roots-kwekerij/)
+BASE_PATH = "/" + os.environ.get("ROOTS_BASE_PATH", "/").strip("/") + "/" if os.environ.get("ROOTS_BASE_PATH", "/").strip("/") else "/"
 PAGES = ["home", "sempervivum", "perovskia", "hibiscus"]
 YEAR = "2026"
 
@@ -582,9 +584,8 @@ def not_found():
     en = T["en"]
     graph = [org_ld()]
     h = head("nl", "home", t["nf_title"], t["nf_p"], graph).replace('<meta name="robots" content="noindex">', "")
-    h = h.replace("<head>", '<head>\n<meta name="robots" content="noindex">')
-    # 404 kan op elke diepte geserveerd worden: absolute paden vanaf de root
-    h = h.replace('href="favicon', 'href="/favicon').replace('href="apple', 'href="/apple').replace('href="fonts/', 'href="/fonts/').replace('href="css/', 'href="/css/').replace('content="img/', 'content="/img/')
+    # 404 wordt op elke diepte geserveerd: <base> laat de relatieve paden vanaf de site-map werken
+    h = h.replace("<head>", f'<head>\n<base href="{BASE_PATH}">\n<meta name="robots" content="noindex">')
     return h + f'''
 <body>
 <main id="main">
@@ -594,7 +595,7 @@ def not_found():
       <h1 id="h1">{e(t["nf_h1"])}</h1>
       <p class="lede">{e(t["nf_p"])}</p>
       <p class="lede" lang="en" style="margin-top:12px">{e(en["nf_h1"])} {e(en["nf_p"])}</p>
-      <div class="hero-cta"><a class="btn btn-dark" href="/">{e(t["nf_btn"])}</a><a class="btn btn-line" href="/en/" lang="en">{e(en["nf_btn"])}</a></div>
+      <div class="hero-cta"><a class="btn btn-dark" href="./">{e(t["nf_btn"])}</a><a class="btn btn-line" href="en/" lang="en">{e(en["nf_btn"])}</a></div>
     </div>
   </section>
 </main>
