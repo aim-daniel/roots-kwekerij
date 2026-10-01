@@ -327,7 +327,7 @@ IMG = {"chick-charms": "chick-charms", "giants": "giants", "colorockz": "coloroc
 CARD_TARGET = {"chick-charms": ("sempervivum", "chick-charms"), "giants": ("sempervivum", "giants"),
                "colorockz": ("sempervivum", "colorockz"), "perovskia": ("perovskia", ""), "hibiscus": ("hibiscus", "")}
 STEP_ICONS = ["stek", "wortel", "pot", "kas", "tray", "klok", "truck"]
-STEP_PHOTOS = [None, "stap-wortelen", "stap-oppotten", "stap-groeien", "stap-kar", "stap-verkoopklaar", None]
+STEP_PHOTOS = [None, "stap-wortelen", "stap-oppotten", "stap-groeien", "stap-kar", "stap-verkoopklaar", "stap-onderweg"]
 STEP_SIDES = ["l", "r", "l", "r", "l", "r", "l"]
 
 
@@ -341,7 +341,8 @@ def home(lang):
     def step(i):
         s = t["steps"][i]
         chips = ('<ul class="chips">' + "".join(f"<li>{e(c)}</li>" for c in s["chips"]) + "</ul>") if s["chips"] else ""
-        photo = (f'<figure class="st-photo">{pic(b, STEP_PHOTOS[i], s["alt"], "260px")}</figure>') if STEP_PHOTOS[i] else ""
+        # een stap zonder (aangeleverde) foto toont alleen de zin
+        photo = (f'<figure class="st-photo">{pic(b, STEP_PHOTOS[i], s["alt"], "260px")}</figure>') if STEP_PHOTOS[i] in IMG_SIZES else ""
         return f'''            <li class="step {STEP_SIDES[i]}">
               <details class="st">
                 <summary><div class="st-main"><div class="ico">{ico(STEP_ICONS[i])}</div><div class="st-body"><h3>{e(s["title"])}</h3>{chips}</div><i class="plus" aria-hidden="true"></i></div></summary>
@@ -582,6 +583,7 @@ def plant_page(lang, key):
 def not_found():
     t = T["nl"]
     en = T["en"]
+    de = T["de"]
     graph = [org_ld()]
     h = head("nl", "home", t["nf_title"], t["nf_p"], graph).replace('<meta name="robots" content="noindex">', "")
     # 404 wordt op elke diepte geserveerd: <base> laat de relatieve paden vanaf de site-map werken
@@ -595,7 +597,8 @@ def not_found():
       <h1 id="h1">{e(t["nf_h1"])}</h1>
       <p class="lede">{e(t["nf_p"])}</p>
       <p class="lede" lang="en" style="margin-top:12px">{e(en["nf_h1"])} {e(en["nf_p"])}</p>
-      <div class="hero-cta"><a class="btn btn-dark" href="./">{e(t["nf_btn"])}</a><a class="btn btn-line" href="en/" lang="en">{e(en["nf_btn"])}</a></div>
+      <p class="lede" lang="de" style="margin-top:12px">{e(de["nf_h1"])} {e(de["nf_p"])}</p>
+      <div class="hero-cta"><a class="btn btn-dark" href="./">{e(t["nf_btn"])}</a><a class="btn btn-line" href="en/" lang="en">{e(en["nf_btn"])}</a><a class="btn btn-line" href="de/" lang="de">{e(de["nf_btn"])}</a></div>
     </div>
   </section>
 </main>
