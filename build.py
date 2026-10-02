@@ -32,6 +32,15 @@ YEAR = "2026"
 e = html.escape
 
 
+def nb(text):
+    """Escape + de laatste twee woorden aan elkaar (vaste spatie): geen los woord op een eigen regel,
+    ook in Safari 16.3 waar text-wrap:balance niet werkt."""
+    i = text.rfind(" ")
+    if i > 0:
+        text = text[:i] + "\u00a0" + text[i + 1:]
+    return e(text)
+
+
 # ---------------------------------------------------------------- paden
 def path(lang, page):
     """Pad vanaf de root, bv. '' / 'sempervivum/' / 'en/' / 'de/hibiscus/'."""
@@ -287,8 +296,8 @@ def contact_section(lang):
     country = ("<br>" + e(t["country"])) if t["country"] else ""
     return f'''    <section class="contact sec" id="{IDS[lang]["contact"]}" aria-labelledby="h-contact">
       <div class="wrap">
-        <h2 id="h-contact">{e(t["contact_h2"])}</h2>
-        <p class="lede">{e(t["contact_lede"])}</p>
+        <h2 id="h-contact">{nb(t["contact_h2"])}</h2>
+        <p class="lede">{nb(t["contact_lede"])}</p>
         <div class="hero-cta">
           <a class="btn btn-light" href="tel:{c["phone_e164"]}">{e(t["call"].format(phone=phone_label))}</a>
           <a class="btn btn-ghost" href="mailto:{c["email"]}">{e(t["mail"])}</a>
@@ -305,7 +314,7 @@ def contact_section(lang):
 def case(b, key, s, href=None, sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px", anchor_id=None):
     season = " season" if key in ("perovskia", "hibiscus") else ""
     img = pic(b, IMG[key], s["alt"], sizes)
-    inner = f'{img}<figcaption><span class="tag{season}">{e(s["tag"])}</span><h3 id="t-{key}">{e(s["name"])}</h3><p>{e(s["text"])}</p></figcaption>'
+    inner = f'{img}<figcaption><span class="tag{season}">{e(s["tag"])}</span><h3 id="t-{key}">{nb(s["name"])}</h3><p>{e(s["text"])}</p></figcaption>'
     idattr = f' id="{anchor_id}"' if anchor_id else ""
     if href:
         return f'<a class="case" href="{href}" aria-labelledby="t-{key}"{idattr}><figure style="margin:0;height:100%">{inner}</figure></a>'
@@ -334,7 +343,7 @@ def home(lang):
         photo = (f'<figure class="st-photo">{pic(b, STEP_PHOTOS[i], s["alt"], "260px")}</figure>') if STEP_PHOTOS[i] in IMG_SIZES else ""
         return f'''            <li class="step {STEP_SIDES[i]}">
               <details class="st">
-                <summary><span class="st-main"><span class="ico">{ico(STEP_ICONS[i])}</span><span class="st-body"><h3>{e(s["title"])}</h3>{chips}</span><i class="plus" aria-hidden="true"></i></span></summary>
+                <summary><span class="st-main"><span class="ico">{ico(STEP_ICONS[i])}</span><span class="st-body"><h3>{nb(s["title"])}</h3>{chips}</span><i class="plus" aria-hidden="true"></i></span></summary>
                 <div class="st-more"><p>{e(s["text"])}</p>{photo}</div>
               </details>
             </li>'''
@@ -348,8 +357,8 @@ def home(lang):
     buy_icons = ["klok", "tel", "pen"]
     buy = "\n".join(f'''        <div class="buy-card">
           <div class="ico">{ico(buy_icons[i])}</div>
-          <h3>{e(c["title"])}</h3>
-          <p>{e(c["text"])}</p>
+          <h3>{nb(c["title"])}</h3>
+          <p>{nb(c["text"])}</p>
         </div>''' for i, c in enumerate(t["buy_cards"]))
     d = t["dest"]
     faq = "\n".join(f'          <details><summary>{e(q)}<i aria-hidden="true"></i></summary><p>{e(a)}</p></details>' for q, a in t["faq"])
@@ -366,8 +375,8 @@ def home(lang):
   <section class="hero" id="start" aria-labelledby="h1">
     <div class="wrap">
       <p class="badge"><i></i>{e(t["badge"])}</p>
-      <h1 id="h1">{e(t["h1"])}</h1>
-      <p class="lede">{e(t["lede"])}</p>
+      <h1 id="h1">{nb(t["h1"])}</h1>
+      <p class="lede">{nb(t["lede"])}</p>
       <div class="hero-cta">
         <a class="btn btn-dark" href="#{ids["plants"]}">{e(t["cta_plants"])} <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-line" href="#{ids["buy"]}">{e(t["cta_buy"])}</a>
@@ -389,7 +398,7 @@ def home(lang):
     <section class="proc" id="{ids["process"]}" aria-labelledby="h-proc">
       <div class="wrap">
         <div class="sec-title">
-          <h2 id="h-proc">{e(t["proc_h2"])}</h2>
+          <h2 id="h-proc">{nb(t["proc_h2"])}</h2>
           <span class="scribble">{e(t["proc_scribble"])}</span>
           <p>{e(t["proc_intro"])}</p>
         </div>
@@ -408,9 +417,9 @@ def home(lang):
 
     <section class="plants sec" id="{ids["plants"]}" aria-labelledby="h-plants">
       <div class="wrap sec-title">
-        <h2 id="h-plants">{e(t["plants_h2"])}</h2>
+        <h2 id="h-plants">{nb(t["plants_h2"])}</h2>
         <span class="scribble">{e(t["plants_scribble"])}</span>
-        <p>{e(t["plants_intro"])}</p>
+        <p>{nb(t["plants_intro"])}</p>
       </div>
       <div class="carousel">
         <button class="car-btn prev" type="button" id="prev" aria-label="{e(t["prev"])}">{ARROW_L}</button>
@@ -426,9 +435,9 @@ def home(lang):
       <div class="wrap about-grid">
         <figure class="about-photo">{pic(b, "stefan-christol-rond", t["about_alt"], "(max-width:760px) 160px, 250px")}</figure>
         <div class="about-txt">
-          <h2 id="h-about">{e(t["about_h2"])}</h2>
+          <h2 id="h-about">{nb(t["about_h2"])}</h2>
           <span class="scribble">{e(t["about_scribble"])}</span>
-          <p>{e(t["about_p"])}</p>
+          <p>{nb(t["about_p"])}</p>
           <details class="more">
             <summary>{e(t["about_more"])}<i class="plus" aria-hidden="true"></i></summary>
             <p>{e(t["about_story"])}</p>
@@ -441,7 +450,7 @@ def home(lang):
 
     <section class="buy sec" id="{ids["buy"]}" aria-labelledby="h-buy">
       <div class="wrap sec-title">
-        <h2 id="h-buy">{e(t["buy_h2"])}</h2>
+        <h2 id="h-buy">{nb(t["buy_h2"])}</h2>
         <span class="scribble">{e(t["buy_scribble"])}</span>
       </div>
       <div class="wrap buy-grid">
@@ -461,7 +470,7 @@ def home(lang):
 
     <section class="faq-sec sec" id="{ids["faq"]}" aria-labelledby="h-faq">
       <div class="wrap sec-title">
-        <h2 id="h-faq">{e(t["faq_h2"])}</h2>
+        <h2 id="h-faq">{nb(t["faq_h2"])}</h2>
       </div>
       <div class="wrap">
         <div class="faq">
@@ -494,7 +503,7 @@ def plant_page(lang, key):
         gallery = "".join(f"<figure>{pic(b, n, p['gallery_alts'][i], '(max-width:900px) 46vw, 270px')}</figure>" for i, n in enumerate(gallery_imgs))
         sections = f'''    <section class="sec first" aria-labelledby="h-series">
       <div class="wrap sec-title">
-        <h2 id="h-series">{e(p["series_h2"])}</h2>
+        <h2 id="h-series">{nb(p["series_h2"])}</h2>
         <span class="scribble">{e(p["series_scribble"])}</span>
       </div>
       <div class="wrap cards">
@@ -505,7 +514,7 @@ def plant_page(lang, key):
 
     <section class="sec" aria-labelledby="h-gallery">
       <div class="wrap sec-title">
-        <h2 id="h-gallery">{e(t["gallery_h2"])}</h2>
+        <h2 id="h-gallery">{nb(t["gallery_h2"])}</h2>
         <span class="scribble">{e(t["gallery_scribble"])}</span>
       </div>
       <div class="wrap gallery">{gallery}</div>
@@ -522,7 +531,7 @@ def plant_page(lang, key):
             klass = "cards one"
         sections = f'''    <section class="sec first" aria-labelledby="h-photos">
       <div class="wrap sec-title">
-        <h2 id="h-photos">{e(p["photos_h2"])}</h2>
+        <h2 id="h-photos">{nb(p["photos_h2"])}</h2>
         <span class="scribble">{e(p["photos_scribble"])}</span>
       </div>
       <div class="wrap {klass}">
@@ -544,8 +553,8 @@ def plant_page(lang, key):
   <section class="hero page-hero" id="start" aria-labelledby="h1">
     <div class="wrap">
       <p class="badge"><i></i>{e(p["badge"])}</p>
-      <h1 id="h1">{e(p["h1"])}</h1>
-      <p class="lede">{e(p["lede"])}</p>
+      <h1 id="h1">{nb(p["h1"])}</h1>
+      <p class="lede">{nb(p["lede"])}</p>
       <ul class="facts">{facts}</ul>
       <div class="hero-cta">
         <a class="btn btn-dark" href="{link(lang, key, lang, "home", ids["buy"])}">{e(t["page_cta_buy"])} <span class="arr" aria-hidden="true">→</span></a>
@@ -584,7 +593,7 @@ def not_found():
   <section class="hero" aria-labelledby="h1" style="min-height:100vh;padding-bottom:80px">
     <div class="wrap">
       <p class="badge"><i></i>404</p>
-      <h1 id="h1">{e(t["nf_h1"])}</h1>
+      <h1 id="h1">{nb(t["nf_h1"])}</h1>
       <p class="lede">{e(t["nf_p"])}</p>
       <p class="lede" lang="en" style="margin-top:12px">{e(en["nf_h1"])} {e(en["nf_p"])}</p>
       <p class="lede" lang="de" style="margin-top:12px">{e(de["nf_h1"])} {e(de["nf_p"])}</p>
