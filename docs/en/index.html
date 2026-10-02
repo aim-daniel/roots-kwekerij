@@ -11,7 +11,7 @@
 <link rel="icon" href="../icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="preload" href="../fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../css/site.css?v=50a16d5b">
+<link rel="stylesheet" href="../css/site.css?v=fe4413ff">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Roots">
 <meta property="og:title" content="Roots | Sempervivum grower in the Netherlands">
@@ -27,7 +27,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="top" id="top">
+<header class="top scrolled" id="top">
   <div class="wrap top-in">
     <a class="brand" href="#start" aria-label="Roots, to the homepage"><span class="logo-d"><picture><source type="image/webp" srcset="../logo/logo.webp"><img class="logo" src="../logo/logo.png" alt="" width="117" height="24"></picture></span><span class="logo-l"><picture><source type="image/webp" srcset="../logo/logo-licht.webp"><img class="logo" src="../logo/logo-licht.png" alt="" width="117" height="24"></picture></span></a>
     <nav class="nav" aria-label="Main menu"><a href="#how-we-grow">How we grow</a><a href="#plants">Plants</a><a href="#about-us">About us</a><a href="#buying">Buying</a></nav>
@@ -49,7 +49,7 @@
         <a class="btn btn-line" href="#buying">How to buy</a>
       </div>
     </div>
-    <div class="ticker">
+    <div class="ticker" tabindex="0" role="group" aria-label="What we grow: click or tap to pause">
       <p class="ticker-label">What we grow</p>
       <div class="track">
         <ul><li>Sempervivum</li><li>Chick Charms®</li><li>Colorockz®</li><li>Giants</li><li>Perovskia</li><li>Hibiscus</li></ul>
@@ -131,11 +131,11 @@
       <div class="carousel">
         <button class="car-btn prev" type="button" id="prev" aria-label="Previous plants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
         <div class="cases" id="cases" tabindex="0" role="region" aria-label="Plants">
-          <a class="case" href="../en/sempervivum/#chick-charms"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/chick-charms-560.webp 560w, ../img/chick-charms.webp 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/chick-charms.jpg" srcset="../img/chick-charms-560.jpg 560w, ../img/chick-charms.jpg 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Sempervivum Chick Charms Gold Rush: rosettes in gold and red" width="900" height="900" loading="lazy" decoding="async"></picture><figcaption><span class="tag">Sempervivum</span><h3>Chick Charms®</h3><p>Sempervivum in many colours.</p></figcaption></figure></a>
-          <a class="case" href="../en/sempervivum/#giants"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/giants-560.webp 560w, ../img/giants.webp 1000w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/giants.jpg" srcset="../img/giants-560.jpg 560w, ../img/giants.jpg 1000w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Sempervivum Chick Charms Giants Emerald Explosion: a large rosette in a green pot" width="1000" height="1000" loading="lazy" decoding="async"></picture><figcaption><span class="tag">Sempervivum</span><h3>Chick Charms® Giants</h3><p>Chick Charms with extra-large rosettes.</p></figcaption></figure></a>
-          <a class="case" href="../en/sempervivum/#colorockz"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/colorockz-560.webp 560w, ../img/colorockz.webp 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/colorockz.jpg" srcset="../img/colorockz-560.jpg 560w, ../img/colorockz.jpg 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Sempervivum Colorockz Lemon Flare: full rosettes in green with red tips" width="900" height="900" loading="lazy" decoding="async"></picture><figcaption><span class="tag">Sempervivum</span><h3>Colorockz®</h3><p>Sturdy Sempervivum that changes colour with the seasons.</p></figcaption></figure></a>
-          <a class="case" href="../en/perovskia/"><figure style="margin:0;height:100%"><img src="../img/perovskia.jpg" srcset="../img/perovskia-560.jpg 560w, ../img/perovskia.jpg 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Perovskia Prime Time: Russian sage with lavender-purple flowers" width="900" height="900" loading="lazy" decoding="async"><figcaption><span class="tag season">May – September</span><h3>Perovskia</h3><p>Russian sage with lavender-purple flowers.</p></figcaption></figure></a>
-          <a class="case" href="../en/hibiscus/"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/hibiscus-560.webp 560w, ../img/hibiscus.webp 933w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/hibiscus.jpg" srcset="../img/hibiscus-560.jpg 560w, ../img/hibiscus.jpg 933w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Hibiscus with a large white flower" width="933" height="933" loading="lazy" decoding="async"></picture><figcaption><span class="tag season">Summer</span><h3>Hibiscus</h3><p>Summer bloomer with large flowers.</p></figcaption></figure></a>
+          <a class="case" href="../en/sempervivum/#chick-charms" aria-labelledby="t-chick-charms"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/chick-charms-560.webp 560w, ../img/chick-charms.webp 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/chick-charms.jpg" srcset="../img/chick-charms-560.jpg 560w, ../img/chick-charms.jpg 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Sempervivum Chick Charms Gold Rush: rosettes in gold and red" width="900" height="900" loading="lazy" decoding="async"></picture><figcaption><span class="tag">Sempervivum</span><h3 id="t-chick-charms">Chick Charms®</h3><p>Sempervivum in many colours.</p></figcaption></figure></a>
+          <a class="case" href="../en/sempervivum/#giants" aria-labelledby="t-giants"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/giants-560.webp 560w, ../img/giants.webp 1000w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/giants.jpg" srcset="../img/giants-560.jpg 560w, ../img/giants.jpg 1000w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Sempervivum Chick Charms Giants Emerald Explosion: a large rosette in a green pot" width="1000" height="1000" loading="lazy" decoding="async"></picture><figcaption><span class="tag">Sempervivum</span><h3 id="t-giants">Chick Charms® Giants</h3><p>Chick Charms with extra-large rosettes.</p></figcaption></figure></a>
+          <a class="case" href="../en/sempervivum/#colorockz" aria-labelledby="t-colorockz"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/colorockz-560.webp 560w, ../img/colorockz.webp 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/colorockz.jpg" srcset="../img/colorockz-560.jpg 560w, ../img/colorockz.jpg 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Sempervivum Colorockz Lemon Flare: full rosettes in green with red tips" width="900" height="900" loading="lazy" decoding="async"></picture><figcaption><span class="tag">Sempervivum</span><h3 id="t-colorockz">Colorockz®</h3><p>Sturdy Sempervivum that changes colour with the seasons.</p></figcaption></figure></a>
+          <a class="case" href="../en/perovskia/" aria-labelledby="t-perovskia"><figure style="margin:0;height:100%"><img src="../img/perovskia.jpg" srcset="../img/perovskia-560.jpg 560w, ../img/perovskia.jpg 900w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Perovskia Prime Time: Russian sage with lavender-purple flowers" width="900" height="900" loading="lazy" decoding="async"><figcaption><span class="tag season">May – September</span><h3 id="t-perovskia">Perovskia</h3><p>Russian sage with lavender-purple flowers.</p></figcaption></figure></a>
+          <a class="case" href="../en/hibiscus/" aria-labelledby="t-hibiscus"><figure style="margin:0;height:100%"><picture><source type="image/webp" srcset="../img/hibiscus-560.webp 560w, ../img/hibiscus.webp 933w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px"><img src="../img/hibiscus.jpg" srcset="../img/hibiscus-560.jpg 560w, ../img/hibiscus.jpg 933w" sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px" alt="Hibiscus with a large white flower" width="933" height="933" loading="lazy" decoding="async"></picture><figcaption><span class="tag season">Summer</span><h3 id="t-hibiscus">Hibiscus</h3><p>Summer bloomer with large flowers.</p></figcaption></figure></a>
         </div>
         <button class="car-btn next" type="button" id="next" aria-label="Next plants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
@@ -237,6 +237,6 @@
     </ul>
   </div>
 </footer>
-<script src="../js/roots.js?v=50a16d5b" defer></script>
+<script src="../js/roots.js?v=fe4413ff" defer></script>
 </body>
 </html>

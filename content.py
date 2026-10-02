@@ -46,6 +46,7 @@ T = {
     "cta_plants": "Bekijk de planten",
     "cta_buy": "Zo koop je bij ons",
     "ticker_label": "Wat we kweken",
+    "ticker_pause": "klik of tik om te pauzeren",
     # werkwijze
     "proc_h2": "Van stek tot klant",
     "proc_scribble": "de grond in, de kas uit",
@@ -190,6 +191,7 @@ T = {
     "cta_plants": "See our plants",
     "cta_buy": "How to buy",
     "ticker_label": "What we grow",
+    "ticker_pause": "click or tap to pause",
     "proc_h2": "From cutting to customer",
     "proc_scribble": "into the soil, out of the greenhouse",
     "proc_intro": "A good root first, the rest follows. Open a step to read more.",
@@ -327,6 +329,7 @@ T = {
     "cta_plants": "Unsere Pflanzen",
     "cta_buy": "So kaufen Sie bei uns",
     "ticker_label": "Was wir kultivieren",
+    "ticker_pause": "zum Anhalten klicken oder tippen",
     "proc_h2": "Vom Steckling zum Kunden",
     "proc_scribble": "in die Erde, aus dem Gewächshaus",
     "proc_intro": "Erst eine gute Wurzel, der Rest folgt. Öffnen Sie einen Schritt für mehr.",

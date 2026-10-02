@@ -91,7 +91,7 @@ p{margin:0}
 .track li:nth-child(4n){font-family:var(--mono);font-size:clamp(18px,2vw,24px);font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:rgba(43,30,21,.68)}
 @media (prefers-reduced-motion: no-preference){
   .track{animation:marquee 40s linear infinite}
-  .ticker:hover .track,.ticker:focus-within .track{animation-play-state:paused}
+  .ticker:hover .track,.ticker:focus-within .track,.ticker.paused .track{animation-play-state:paused}
   @keyframes marquee{to{transform:translateX(-50%)}}
 }
 @media (prefers-reduced-motion: reduce){.track ul[aria-hidden]{display:none}.track{width:auto;justify-content:center}.track ul{flex-wrap:wrap;justify-content:center;row-gap:10px}}

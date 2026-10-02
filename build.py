@@ -246,7 +246,7 @@ def header(lang, page):
     contact = "#" + ids["contact"]
     brand_href = "#start" if page == "home" else link(lang, page, lang, "home")
     return f'''<a class="skip" href="#main">{e(t["skip"])}</a>
-<header class="top" id="top">
+<header class="top scrolled" id="top">
   <div class="wrap top-in">
     <a class="brand" href="{brand_href}" aria-label="{e(t["brand_label"])}">{logo_imgs(up(lang, page))}</a>
     <nav class="nav" aria-label="{e(t["menu_label"])}">{nav}</nav>
@@ -305,10 +305,10 @@ def contact_section(lang):
 def case(b, key, s, href=None, sizes="(max-width:640px) 84vw, (max-width:900px) 50vw, 380px", anchor_id=None):
     season = " season" if key in ("perovskia", "hibiscus") else ""
     img = pic(b, IMG[key], s["alt"], sizes)
-    inner = f'{img}<figcaption><span class="tag{season}">{e(s["tag"])}</span><h3>{e(s["name"])}</h3><p>{e(s["text"])}</p></figcaption>'
+    inner = f'{img}<figcaption><span class="tag{season}">{e(s["tag"])}</span><h3 id="t-{key}">{e(s["name"])}</h3><p>{e(s["text"])}</p></figcaption>'
     idattr = f' id="{anchor_id}"' if anchor_id else ""
     if href:
-        return f'<a class="case" href="{href}"{idattr}><figure style="margin:0;height:100%">{inner}</figure></a>'
+        return f'<a class="case" href="{href}" aria-labelledby="t-{key}"{idattr}><figure style="margin:0;height:100%">{inner}</figure></a>'
     return f'<figure class="case"{idattr}>{inner}</figure>'
 
 
@@ -373,7 +373,7 @@ def home(lang):
         <a class="btn btn-line" href="#{ids["buy"]}">{e(t["cta_buy"])}</a>
       </div>
     </div>
-    <div class="ticker">
+    <div class="ticker" tabindex="0" role="group" aria-label="{e(t["ticker_label"] + ": " + t["ticker_pause"])}">
       <p class="ticker-label">{e(t["ticker_label"])}</p>
       <div class="track">
         <ul>{ticker_items}</ul>

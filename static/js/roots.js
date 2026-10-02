@@ -190,6 +190,14 @@
   for(var di=0;di<dets.length;di++)dets[di].addEventListener('toggle',rebuild);
   header();rebuild();
 
+  /* plantnamenrij: klik, tik of Enter/spatie zet hem stil en weer aan */
+  var tick=document.querySelector('.ticker');
+  if(tick){
+    var tog=function(){tick.classList.toggle('paused');};
+    tick.addEventListener('click',tog);
+    tick.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();tog();}});
+  }
+
   /* plantenkaarten: pijlen alleen als niet alles past */
   var cases=document.getElementById('cases'),prev=document.getElementById('prev'),next=document.getElementById('next');
   if(!cases||!prev||!next)return;
