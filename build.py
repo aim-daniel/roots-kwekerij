@@ -36,7 +36,9 @@ def nb(text):
     """Escape + de laatste twee woorden aan elkaar (vaste spatie): geen los woord op een eigen regel,
     ook in Safari 16.3 waar text-wrap:balance niet werkt."""
     i = text.rfind(" ")
-    if i > 0:
+    j = text.rfind(" ", 0, i)
+    # alleen korte woordparen: lange paren (bv. "unserem Gewächshaus") passen in grote letters niet op een smal scherm
+    if i > 0 and len(text) - (j + 1) <= 12:
         text = text[:i] + "\u00a0" + text[i + 1:]
     return e(text)
 
