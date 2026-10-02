@@ -273,7 +273,7 @@ p{margin:0}
 
 /* contact */
 .contact{text-align:center;padding-bottom:130px}
-.contact h2{font-size:clamp(42px,6.4vw,84px);letter-spacing:-.04em;max-width:12ch;margin:0 auto}
+.contact h2{font-size:clamp(42px,6.4vw,84px);letter-spacing:-.04em;max-width:15ch;margin:0 auto}
 .contact .lede{margin:24px auto 0;font-size:18px;max-width:32em}
 .contact .hero-cta .btn-ghost{color:var(--ink)}
 .nap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:900px;margin:56px auto 0;text-align:left}
