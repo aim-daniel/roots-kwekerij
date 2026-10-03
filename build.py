@@ -22,6 +22,13 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC = os.path.join(ROOT, "static")
 OUT = os.path.join(ROOT, "docs")
 SITE_URL = os.environ.get("ROOTS_SITE_URL", "").rstrip("/")
+# Eigen domein: staat het in docs/CNAME (GitHub Pages), dan geldt dat vanzelf. Zo zet een kale
+# `python3 build.py` na de overstap nooit per ongeluk noindex terug of breekt hij de 404.
+_cname = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs", "CNAME")
+if not SITE_URL and os.path.exists(_cname):
+    _host = open(_cname).read().strip()
+    if _host:
+        SITE_URL = "https://" + _host
 INDEXABLE = bool(SITE_URL) and os.environ.get("ROOTS_NOINDEX") != "1"
 # map waarin de site op de server staat (GitHub Pages zonder eigen domein: /roots-kwekerij/)
 _bp = os.environ.get("ROOTS_BASE_PATH", "/" if SITE_URL else "/roots-kwekerij/").strip("/")
